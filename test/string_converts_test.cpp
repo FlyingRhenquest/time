@@ -11,6 +11,7 @@ class string_converts_test : public test_class {
   CPPUNIT_TEST_SUITE(string_converts_test);
   CPPUNIT_TEST(test_time_convert);
   CPPUNIT_TEST(test_broken_re);
+  CPPUNIT_TEST(test_string_to);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -56,6 +57,13 @@ public:
       failsauce = false;
     }
     CPPUNIT_ASSERT(!failsauce);
+  }
+
+  void test_string_to()
+  {
+    long longcvt = 12345l;
+    std::string as_string = fr::time::to_string(longcvt);
+    CPPUNIT_ASSERT(as_string == "12345");
   }
 
 };

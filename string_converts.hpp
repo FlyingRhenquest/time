@@ -138,7 +138,18 @@ namespace fr {
 
     };
 
+    /**
+     * Generic to_string -- convert anything that iostream can
+     * print to a string
+     */
+
+    template <typename T>
+    std::string to_string(const T &cvt)
+    {
+      std::stringstream stream("");
+      stream << cvt;
+      return stream.str();
+    }
   }
 }
-
 #endif
