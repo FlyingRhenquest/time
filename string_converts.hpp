@@ -150,6 +150,29 @@ namespace fr {
       stream << cvt;
       return stream.str();
     }
+
+    /**
+     * Various time ones
+     */
+
+    std::string to_string(const timeval &cvt, std::string fmt="%Y-%m-%dT%H:%M:%S.%f")
+    {
+      long static_buffer_size = 255;
+      char static_buffer[static_buffer_size];
+      memset(static_buffer, '\0', static_buffer_size);
+      struct tm tm_time;
+      time_t t_time = cvt.tv_sec;
+      localtime_r(&t_time, &tm_time);
+      strftime(static_buffer, static_buffer_size, fmt.c_str(), &tm_time);
+      std::string retval(static_buffer);
+      size_t fractions = retval.find("%f");
+      if (fractions != std::string::npos) {
+	retval.replace(fractions, 2, to_string(cvt.tv_usec));
+      }
+      return retval;
+    }
+    
   }
+
 }
 #endif

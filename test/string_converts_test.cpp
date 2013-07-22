@@ -12,6 +12,7 @@ class string_converts_test : public test_class {
   CPPUNIT_TEST(test_time_convert);
   CPPUNIT_TEST(test_broken_re);
   CPPUNIT_TEST(test_string_to);
+  CPPUNIT_TEST(test_time_to_string);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -64,6 +65,17 @@ public:
     long longcvt = 12345l;
     std::string as_string = fr::time::to_string(longcvt);
     CPPUNIT_ASSERT(as_string == "12345");
+  }
+
+  void test_time_to_string()
+  {
+    fr::time::timezone_manager tz("GMT");
+    timeval cvt;
+    cvt.tv_sec = 0; // Midnight, Jan 1, 1970 (GMT)
+    cvt.tv_usec = 500000;
+    std::string expected("1970-01-01T00:00:00.500000");
+    std::string actual = fr::time::to_string(cvt);
+    CPPUNIT_ASSERT(actual == expected);
   }
 
 };
