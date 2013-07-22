@@ -36,6 +36,9 @@
 #include <string>
 #include <time.h>
 
+#ifndef _HPP_TIMEZONE_MANAGER
+#define _HPP_TIMEZONE_MANAGER
+
 namespace fr {
 
   namespace time {
@@ -74,3 +77,5 @@ namespace fr {
   }
 
 }
+
+#endif
