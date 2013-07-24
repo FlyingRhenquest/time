@@ -13,6 +13,7 @@ class string_converts_test : public test_class {
   CPPUNIT_TEST(test_broken_re);
   CPPUNIT_TEST(test_string_to);
   CPPUNIT_TEST(test_time_to_string);
+  CPPUNIT_TEST(double_specialization);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -76,6 +77,18 @@ public:
     std::string expected("1970-01-01T00:00:00.500000");
     std::string actual = fr::time::to_string<timeval>()(cvt);
     CPPUNIT_ASSERT(actual == expected);
+  }
+
+  void double_specialization()
+  {
+    double foo = 1.23;
+    // Set precision to 4
+    std::string bar = fr::time::to_string<double>(4)(foo);
+    std::string expected("1.2300");
+    CPPUNIT_ASSERT(bar == expected);
+    bar = fr::time::to_string<double>()(foo);
+    expected = "1.23";
+    CPPUNIT_ASSERT(bar == expected);
   }
 
 };

@@ -154,6 +154,30 @@ namespace fr {
     };
 
     /**
+     * Specialize double because I want to be able to specify
+     * precision
+     */
+
+    template <>
+    class to_string<double> {
+      int precision;
+    public:
+      to_string(int precision = 0) : precision(precision)
+      {
+      }
+
+      std::string operator()(const double &cvt)
+      {
+	std::stringstream stream("");
+	if (precision > 0) {
+	  stream << std::fixed << std::setprecision(precision);
+	}
+	stream << cvt;
+	return stream.str();
+      }
+    };
+
+    /**
      * Various time ones
      */
 
