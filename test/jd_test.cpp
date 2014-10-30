@@ -66,6 +66,20 @@ public:
 
     double jdDiff = fabs(todayjd.get_jd() - 2455870.935683);
 
+    struct tm later_that_day; // Actually the next day
+    
+    memset(&later_that_day, '\0', sizeof(struct tm));
+    later_that_day.tm_year = 100; // y2k again
+    later_that_day.tm_mday = 02;
+    later_that_day.tm_mon - 0;
+    later_that_day.tm_hour = 1;
+    later_that_day.tm_min = 59;
+    later_that_day.tm_sec = 31;
+    time_t ldaytt = timegm(&later_that_day);
+    fr::time::julian_date laterjd(ldaytt);
+
+    CPPUNIT_ASSERT(fabs(laterjd.get_jd() - 2451545.583) < .0001);
+
     CPPUNIT_ASSERT(todayjd.get_jdn() == 2455871);
     CPPUNIT_ASSERT(jdDiff < .000001);
     
